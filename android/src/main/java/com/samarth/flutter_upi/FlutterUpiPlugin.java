@@ -49,6 +49,7 @@ public class FlutterUpiPlugin implements MethodCallHandler, PluginRegistry.Activ
       String app;
 
       if(call.argument("app") == null) app = "in.org.npci.upiapp"; else app = call.argument("app");
+
       String pa = call.argument("pa");
       String pn = call.argument("pn");
       String mc = call.argument("mc");
@@ -57,20 +58,30 @@ public class FlutterUpiPlugin implements MethodCallHandler, PluginRegistry.Activ
       String am = call.argument("am");
       String cu = call.argument("cu");
       String url = call.argument("url");
+      String payUrl= call.argument("payUrl");
 
       try {
-        Uri.Builder uriBuilder = new Uri.Builder();
-        uriBuilder.scheme("upi").authority("pay");
-        uriBuilder.appendQueryParameter("pa", pa);
-        uriBuilder.appendQueryParameter("pn", pn);
-        if(mc != null) uriBuilder.appendQueryParameter("mc", mc);
-        uriBuilder.appendQueryParameter("tr", tr);
-        uriBuilder.appendQueryParameter("tn", tn);
-        uriBuilder.appendQueryParameter("am", am);
-        uriBuilder.appendQueryParameter("cu", cu);
-        uriBuilder.appendQueryParameter("url", url);
 
-        Uri uri = uriBuilder.build();
+        Uri.Builder uriBuilder = new Uri.Builder();
+        Uri uri = null;
+        if(payUrl!=null){
+
+          uri = Uri.parse(payUrl);
+
+        }else{
+          uriBuilder.scheme("upi").authority("pay");
+          uriBuilder.appendQueryParameter("pa", pa);
+          uriBuilder.appendQueryParameter("pn", pn);
+          if(mc != null) uriBuilder.appendQueryParameter("mc", mc);
+          uriBuilder.appendQueryParameter("tr", tr);
+          uriBuilder.appendQueryParameter("tn", tn);
+          uriBuilder.appendQueryParameter("am", am);
+          uriBuilder.appendQueryParameter("cu", cu);
+          uriBuilder.appendQueryParameter("url", url);
+          uri = uriBuilder.build();
+        }
+
+
 
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setData(uri);

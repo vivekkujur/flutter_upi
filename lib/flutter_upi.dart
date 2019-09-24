@@ -46,14 +46,15 @@ class FlutterUpi {
   static const MethodChannel _channel = const MethodChannel('flutter_upi');
   static Future<String> initiateTransaction(
       {@required String app,
-      @required String pa,
-      @required String pn,
+      String pa,
+      String pn,
       String mc,
-      @required String tr,
-      @required String tn,
-      @required String am,
-      @required String cu,
-      @required String url}) async {
+      String tr,
+      String tn,
+      String am,
+        String cu,
+      String url,
+       String payUrl}) async {
     final String response = await _channel.invokeMethod('initiateTransaction', {
       "app": app,
       'pa': pa,
@@ -63,7 +64,8 @@ class FlutterUpi {
       'tn': tn,
       'am': am,
       'cu': cu,
-      'url': url
+      'url': url,
+      'payUrl':payUrl,
     });
     return response;
   }
