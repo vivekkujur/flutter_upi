@@ -25,8 +25,8 @@ class _MyAppState extends State<MyApp> {
   Future<String> initTransaction(String app) async {
     String response = await FlutterUpi.initiateTransaction(
         app: app,
-        pa: "apoorvaagarwal@upi",
-        pn: "Apoorva Agarwal",
+        pa: "7354016686@ybl",
+        pn: "vivek",
         tr: "TR1234",
         tn: "This is a test transaction",
         am: "5.01",
